@@ -488,14 +488,20 @@ export class DegenesisActor extends Actor {
             weapon : weapon
         }
 
-        if (options.use && weapon.isRanged)
-        {
-            if (options.use == "attack-short")
-                rollData.actionNumber = weapon.effectiveDice
-            else if (options.use == "attack-far")
-                rollData.actionNumber = weapon.farDice
-            else if (options.use == "attack-extreme")
-                rollData.actionNumber = weapon.extremeDice
+        if (options.use) {
+            if (weapon.isMelee) {
+                if (options.use == "attack")
+                    rollData.actionNumber = weapon.attackDice
+                else if (options.use == "defense")
+                    rollData.actionNumber = weapon.defenseDice
+            } else if (weapon.isRanged) {
+                if (options.use == "attack-short")
+                    rollData.actionNumber = weapon.effectiveDice
+                else if (options.use == "attack-far")
+                    rollData.actionNumber = weapon.farDice
+                else if (options.use == "attack-extreme")
+                    rollData.actionNumber = weapon.extremeDice
+            }
         }
 
         return {dialogData, cardData, rollData}
